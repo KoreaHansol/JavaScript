@@ -1,1 +1,1 @@
-# JavaScript
+# JavaScript 근본을 다지기 위한 repository
