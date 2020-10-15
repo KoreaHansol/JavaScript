@@ -170,3 +170,38 @@ console.log(user === user2);
 //user객체를 생성하고 user2에 changeName으로 name프로퍼티를 바꾼 결과를 변수에 담는다.
 //결론적으로는 user, user2는 같은 객체를 비라보게 된다. 그리고 user객체의 name은 He으로 바뀌어있게 된다.
 //왜냐하면 참조형 데이터의 프로퍼티를 바꿀때는 한단계 더 거쳐서 바꾸기 때문에 user, user2는 같은 위치에 있기 때문이다.
+
+var user = {
+    name: 'Kim',
+    gender: 'male'
+};
+
+var changeName = function(user, newName) {
+    return {
+        name: 'newName',
+        gender: user.gender
+    }
+};
+
+var user2 = changeName(user, 'He')
+//이런식으로 새로운 객체를 반환해서 할당한다면 user과 user2는 서로 다른 객체 이므로 안전하게 변경된다.
+//하지만 이런식으로는 정보가 많아지면 일일히 하드코딩 해야한다.
+
+var copyObject = function(target) {
+    var result = {};
+    for (var prop in target) {
+        result[prop] = target[prop];
+    }
+    return result;
+}
+
+var user = {
+    name: 'kim',
+    gender: 'male'
+};
+
+var user2 = copyObject(user);
+user2.name = 'He'
+//새로운 객체를 반환하는것은 위와 똑같고 달라진 점은 for in 으로 target(여기선user)안의 프로퍼티들을 result객체에 복사하는 것이다.
+//하지만 얕은 복사
+
