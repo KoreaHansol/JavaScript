@@ -205,3 +205,32 @@ user2.name = 'He'
 //새로운 객체를 반환하는것은 위와 똑같고 달라진 점은 for in 으로 target(여기선user)안의 프로퍼티들을 result객체에 복사하는 것이다.
 //하지만 얕은 복사
 
+//얕은 복사는 바로 아래단계의 값만 복사하는 방법이고, 깊은복사는 내부의 모든 값들을 하나하나 찾아서 전부 복사하는 방법.
+//위에서는 객체안에 중첩된 객체가 없어서 문제가 없었지만 아래의 코드는 중첩된 객체가 있기때문에 문제가 생긴다.(원본과 사본 둘중 하나를 바꾸면 둘다 동시에 바뀌는 현상)
+
+var user = {
+    name: 'kim',
+    url: {
+        a: 'a.co.kr',
+        b: 'b.co.kr'
+    }
+}
+
+//이에 대해 깊은 복사를 하려면 재귀적으로 복사를 수행해야 한다.
+
+var copyObjectDeep = function(target) {
+    var result = {};
+    if(typeof target === 'object' && target != null) { //target이 객체라면
+        for(var prop in target) {
+            result[prop] = copyObject(target[prop]); //재귀
+        }
+    } else { //객체가 아니라면
+        result = target; //재귀일경우 target[prop] 이므로 프로퍼티를 복사
+    }
+    return result; //(else를 만나서 중첩된 객체가 나타나지 않으므로 프로퍼티가 복사된 채로 재귀함수 종료되고 스택에서 pop)
+}
+
+//이렇게 깊은 복사를 하면 원본과 사본은 서로 완전히 다른 객체를 참조하기 때문에 어느쪽 프로퍼티를 변경하더라도 다른쪽에 영향을 주지 않는다.
+
+//결론적으로는 중첩 객체에대한 복사후 변경을 하려면 아랫단계 모든단계에 대한 복사가 필요하다!
+
