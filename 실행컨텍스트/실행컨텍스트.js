@@ -24,6 +24,11 @@ console.log(a); //1
 //콜스택에는 전역컨텍스트만 남아있는 상태. 다시 이어서 실행/  a변수값을 출력하고 나면 전역공간에 더는 실행할 코드가 남아있지 않게됨. 전역 컨텍스트도 제거
 
 //실행 컨텍스트객체에 담기는 정보는 다음과 같다.
-//variableEnvironment: 현재 컨텍스트 내의 식별자들에 대한 정보 + 외부 환경 정보. 선언 시점의 LexicalEnvironment의 스냅샷으로 변경사항은 반영되지 않음.
-//LexicalEnvironment: 처음에는 variableEnvironment와 같지만 변경 사항이 실시간으로 반영
+//VariableEnvironment: 현재 컨텍스트 내의 식별자들에 대한 정보 + 외부 환경 정보. 선언 시점의 LexicalEnvironment의 스냅샷으로 변경사항은 반영되지 않음.
+//LexicalEnvironment: 처음에는 VariableEnvironment와 같지만 변경 사항이 실시간으로 반영
 //ThisBinding: this 식별자가 바라봐야 할 대상 객체.
+
+//VariableEnvironment
+//VariableEnvironment에 담기는 내용은 LexicalEnvironment와 같지만 최초 실행 시에 스냅샷을 유지한다는 점이 다르다.
+//실행 컨텍스트를 생성할 때 VariableEnvironment에 정보를 먼저 담은 다음, 이를 그대로 복사해서 LexicalEnvironment를 만들고, 이후에는 LexicalEnvironment를 주로 활용
+//VariableEnvironment와 LexicalEnvironment의 내부는 environmentRecord와 outer-EnvironmentReference로 구성
