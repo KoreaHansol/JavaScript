@@ -138,3 +138,17 @@ multyply = function(a,b) {
     return a*b;
 }
 
+//스코프, 스코프 체인, outerEnvironmentReference
+
+//스코프란 식별자에 대한 유효범위, 어떤 경계 A의 외부에서 선언한 변수는 A의 외부뿐 아니라 A의 내부에서도 접근이 가능하지만, A의 내부에서 선언한 변수는
+//오직 A의 내부에서만 접근 가능
+//ES5까지의 자바스크립트는 특이하게 전역공간 제외하면 오직 함수에 의해서만 스코프 생성
+//이러한 식별자의 유효범위를 안에서부터 바깥으로 차례로 검색해 나가는 것을 스코프 체인이라 함.
+//그리고 이것을 가능케 하는것이 바로 LexicalEnvironment의 두번째 수집자료인 outerEnvironmentRefernece
+
+//스코프 체인
+//outerEnvironmentReference는 현재 호출된 함수가 선언될 당시의 LexicalEnvironment를 참조.
+//예를들어 A함수 내부에 B함수를 선언하고 다시 B함수내부에 C함수를 선언하면 함수 C의 outerEnvironmentRefernece는 함수 B의 LexicalEnvironment를 참조
+//함수 B의 LexicalEnvironment에 있는 outerEnvironmentRefernece는 다시 함수 B가 선언되던 때의 LexicalEnvironment를 참조
+//이런 구조적 특성덕분에 여러 스코프에서 동일한 식별자를 선언한 경우에는 무조건 스코프 체인상에서 가장 먼저 발견된 식별자에만 접근 가능
+
