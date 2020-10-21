@@ -76,5 +76,50 @@ var obj1 = {
     }
 }
 obj1.outer();
-
 //ES6에서 우회하는 법은 화살표 함수 (ES5에서는 사용 불가)
+
+//콜백함수 호출 시 그 함수 내부에서의 this
+//함수 A의 제어권을 다른 함수(또는 메서드) B에게 넘겨주는 경우 함수 A를 콜백함수 라 한다.
+//함수 A는 함수 B의 내부 로직에 따라 실행되며, this 역시 함수 B 내부 로직에서 정한 규칙에 따라 값이 결정
+//콜백함수도 함수이기 떄문에 기본적으로 this가 전역객체를 참조하지만, 제어권을 받은 함수에서 콜백함수에 별도로 this가 될 대상을 지정한 경우 그 대상을 참조
+
+
+
+//명시적으로 this를 바인딩 하는 방법
+// call 메서드 - 메서드의 호출 주체인 함수를 즉시 실행하도록 하는 명령, call메서드의 첫번째 인자를 this로 바인딩, 아후의 인자들을 호출할 함수의 매개변수로 한다.
+
+var func = function(a,b,c) {
+    console.log(this,a,b,c);
+}
+
+func(1,2,3); //window,1,2,3
+func.call({x:1},4,5,6) //{x:1},4,5,6
+
+//메서드에 적용
+var obj = {
+    a: 1,
+    method: function(x, y){
+        console.log(this.a, x, y);
+    }
+}
+
+obj.method(2, 3); //1,2,3
+obj.method.call({a: 4}, 5, 6) //4,5,6
+
+
+// apply 메서드 - call메서드와 기능적으로는 완전히 동일, call은 첫번째 인자를 제외한 나머지 모든 인자들을 호출할 함수의 매개변수로 지정하는 반면,
+//apply메서드는 두번째 인자를 배열로 받아 그 배열의 요소들을 호출할 함수의 매개변수로 지정한다는 점에서만 차이가 있다.
+
+var func = function(a,b,c) {
+    console.log(this, a, b, c);
+}
+func.apply({x:1},[4,5,6]) // {x:1} 4 5 6
+
+var obj1 = {
+    a:1,
+    method: function(x, y) {
+        console.log(this.a, x, y);
+    }
+}
+obj.method.apply({a: 4},[5,6]) //4 5 6
+
